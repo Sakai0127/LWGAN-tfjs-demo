@@ -128,7 +128,16 @@
             <div class="modalWrapper">
                 <div class="modalContents">
                     <h1>Overview</h1>
-                    <p>aaaaaaaaaaaa</p>
+                    <p><a href="https://arxiv.org/abs/2101.04775v1"　taeget='_blank'>Towards Faster and Stabilized GAN Training for High-fidelity Few-shot Image Synthesis</a>を試してみました。(個人的に)最近話題になっていたものを実装したものです。
+                    学習に使ったコードは<a href="https://github.com/lucidrains/lightweight-gan" target="_blank">lightweight-gan</a>とほぼ同じ構造をtensorflowに移植したものです。
+                    ただ、今回のモデルはたまたま上手く学習できたという感じが否めなせん。実際に何度もやり直しているので、その中でたまたま良い初期値を設定する乱数のseed値をになったのではないかと思っています。
+                    ですが、約5,000枚のデータセットから512x512のサイズである程度のクオリティーのモデルは作れたのではと思っております。
+                   </p>
+                   <p>
+                       このモデルは20万iterationを約20時間でトレーニングしました。しかし、上述のように、なかなか上手く進まなかったのが現状です。
+                       学習に使ったコードは上記のリンク(colab)より閲覧可能です。また、学習に用いたデータセットも同リンクにダウンロード用のスクリプトを記述してあります。
+                       私が手作業で作ったものなので(私の頭がバグっていなければ)、GANを実装して遊ぶにはいいデータセットになっているのではないかと思います。
+                   </p>
                 </div>
                 <div id="overview-close" class="closeModal">close</div>
             </div>
