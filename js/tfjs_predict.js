@@ -1,7 +1,8 @@
 let generator_lr;
 tf.loadGraphModel('./models/G_LR/model.json').then(function (model) {
     generator_lr = model;
-    console.log('Load Generator LR')
+    console.log('Load Generator LR');
+    $("#start").prop("disabled", false);
 }).catch(
     () => console.log('Fail to load G_LR')
 );
@@ -11,23 +12,20 @@ let sort_idx;
 let noise_idx;
 tf.loadGraphModel('./models/G_HR/model.json').then(function (model) {
     generator_hr = model;
-    console.log('Load Generator HR')
+    console.log('Load Generator HR');
     var hr_inp = generator_hr.inputs;
-    sort_idx = {
-    [String(hr_inp[0].shape[1])] : 0,
-    [String(hr_inp[1].shape[1])] : 1,
-    [String(hr_inp[2].shape[1])] : 2,
-    [String(hr_inp[3].shape[1])] : 3
-    }
-    noise_idx = sort_idx[128]
+    sort_idx = {[String(hr_inp[0].shape[1])] : 0,
+                [String(hr_inp[1].shape[1])] : 1,
+                [String(hr_inp[2].shape[1])] : 2,
+                [String(hr_inp[3].shape[1])] : 3}
+    noise_idx = sort_idx[128];
+
 }).catch(
     () => console.log('Fail to load G_HR')
 );
 
 let random_noise = tf.randomNormal([1, 256], 0, 1);
 let style_noise = tf.randomNormal([1, 256], 0, 1);
-
-
 
 function new_noise(){
     random_noise.dispose();

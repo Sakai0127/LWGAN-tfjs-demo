@@ -57,7 +57,6 @@ function closeEditor(){
 }
 
 function set_random(elem){
-    console.log(elem.value)
     if(elem.value == "Style"){
         style_noise.dispose();
         style_noise = tf.randomNormal([1, 256], 0, 1);
