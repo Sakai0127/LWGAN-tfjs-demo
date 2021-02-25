@@ -77,6 +77,9 @@ $(function(){
     context.fillStyle = "rgb(255, 255, 255)";
     context.fillRect(0, 0,canvas.width, canvas.height);
 
+    var idx = Math.floor(Math.random() * 5);
+    $("#gif-anime").attr("src", `videos/sample_${idx}.mp4`);
+
     $('.overview').on('click', function(){
         for(var line of lines){
             line.hide();
@@ -100,8 +103,7 @@ $(window).on('load', function(){
     lines.push(new LeaderLine($('#style-editor')[0], $('#start')[0], {size:7}));
     lines.push(new LeaderLine($('#noise-editor')[0], $('#start')[0], {size:7}));
     lines.push(new LeaderLine($('#start')[0], $('#output')[0], {size:7}));
-    var idx = Math.floor(Math.random() * 5);
-    $("#gif-anime").attr("src", `videos/sample_${idx}.mp4`);
+    
     for(var i=0; i<256; i++){
         $('<input>').attr({
             type:'number',
