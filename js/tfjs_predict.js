@@ -24,15 +24,18 @@ function new_style(){
     style_noise = tf.randomNormal([1, 256], 0, 1);
 }
 
+var hr_inp = generator_hr.inputs;
 const sort_idx = {
-    '131072': 1,
-    '524288': 3,
-    '262144': 2,
-    '1048576': 0,
+    [String(hr_inp[0].shape[1])] : 0,
+    [String(hr_inp[1].shape[1])] : 1,
+    [String(hr_inp[2].shape[1])] : 2,
+    [String(hr_inp[3].shape[1])] : 3
 }
 
+const noise_idx = sort_idx[128];
+
 function sort_lr_outputs(x, y) {
-    return sort_idx[String(x.size)] - sort_idx[String(y.size)]
+    return sort_idx[String(x.shape[1])] - sort_idx[String(y.shape[1])]
 }
 
 function normalize(z) {
@@ -55,7 +58,15 @@ function sampling(){
         var style_z = normalize(style_noise);
         var lr_out = generator_lr.predict(z).sort(sort_lr_outputs);
         var style_lr_output = generator_lr.predict(style_z).sort(sort_lr_outputs);
-        var output_img = to_int(generator_hr.predict([lr_out[0], style_lr_output[1], style_lr_output[2], style_lr_output[3]]))
+        var inp = [];
+        for(var i=0; i<4; i++){
+            if(i == noise_idx){
+                inp.push(lr_out[i]);
+            } else {
+                inp.push(style_lr_output[i])
+            }
+        }
+        var output_img = to_int(generator_hr.predict(inp))
         return output_img
     });
     return result
